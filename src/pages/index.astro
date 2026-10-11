@@ -169,7 +169,7 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
         <div class="bg-black border-b-2 border-zinc-800 px-4 sm:px-6 py-2.5 flex items-center justify-between text-xs font-mono text-zinc-400 select-none">
           <div class="flex items-center gap-2.5">
             <span class="inline-block w-2.5 h-2.5 bg-blue-600 border border-white/40"></span>
-            <span class="text-white font-bold tracking-wider">TTY1: erm@archbox</span>
+            <span class="text-white font-bold tracking-wider">TTY1: erm@prodesk600g1</span>
           </div>
           <div class="flex items-center gap-3">
             <span class="flex items-center gap-1.5 text-zinc-300">
@@ -245,8 +245,8 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
                 <span class="bg-[#12141a] text-blue-400 border border-blue-900 text-xs font-bold px-2.5 py-1 font-mono">
                   [ CTF: PLAYER ]
                 </span>
-                <span class="bg-[#12141a] text-zinc-300 border border-zinc-700 text-xs font-bold px-2.5 py-1 font-mono">
-                  [ ANDROID GSI ]
+                <span class="bg-[#12141a] text-zinc-300 border border-zinc-700 text-xs font-bold px-2.5 py-1 font-mono" data-i18n="pills.foss">
+                  [ FOSS ENTHUSIAST ]
                 </span>
               </div>
             </div>
@@ -270,7 +270,7 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
 
             <!-- LINK 1: GITHUB -->
             <a
-              href="https://github.com/real"
+              href="https://github.com/real-erm"
               target="_blank"
               rel="noopener noreferrer"
               class="brutal-btn block group border-2 border-white/80 hover:border-blue-600 bg-[#0d0f12] hover:bg-[#12141a] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#2563eb] text-white"
@@ -285,7 +285,7 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
                       <span class="font-bold text-base sm:text-lg tracking-wide" data-i18n="links.github.title">GitHub</span>
                       <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 border border-zinc-600 font-mono">SOURCE</span>
                     </div>
-                    <p class="text-xs sm:text-sm text-zinc-400 font-mono mt-1" data-i18n="links.github.subtitle">github.com/real // Code, tools & repos</p>
+                    <p class="text-xs sm:text-sm text-zinc-400 font-mono mt-1" data-i18n="links.github.subtitle">github.com/real-erm // Code, tools & repos</p>
                   </div>
                 </div>
                 <div class="text-zinc-500 group-hover:text-blue-400 transition-colors pl-2 rtl:pr-2 rtl:pl-0">
@@ -365,17 +365,24 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
               </div>
             </a>
 
-            <!-- SYSTEM HARDWARE / RIG SPECS BOX -->
+            <!-- SYSTEM HARDWARE / RIG SPECS BOX (Fastfetch Flex) -->
             <div class="mt-5 border border-zinc-800 bg-black p-4 sm:p-5 font-mono text-xs sm:text-sm text-zinc-400">
-              <div class="text-white font-bold mb-3 flex items-center gap-2">
-                <Icon name="lucide:terminal" class="w-4 h-4 text-blue-400" />
-                <span data-i18n="specs.title">SYS_CONFIG // WORKSTATION</span>
+              <div class="text-white font-bold mb-3 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <Icon name="lucide:terminal" class="w-4 h-4 text-blue-400" />
+                  <span data-i18n="specs.title">SYS_CONFIG // WORKSTATION</span>
+                </div>
+                <span class="text-[10px] text-zinc-500 font-mono">prodesk600g1</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-                <div><span class="text-zinc-600">&gt; OS:</span> Arch Linux (Zen Kernel)</div>
-                <div><span class="text-zinc-600">&gt; WM:</span> Hyprland / Wayland</div>
-                <div><span class="text-zinc-600">&gt; SHELL:</span> Zsh + Starship</div>
-                <div><span class="text-zinc-600">&gt; FOCUS:</span> Mobile Forensics & CTF</div>
+                <div><span class="text-blue-400 font-bold">&gt; RIG:</span> HP ProDesk 600 G1</div>
+                <div><span class="text-blue-400 font-bold">&gt; OS:</span> Arch Linux x86_64</div>
+                <div><span class="text-blue-400 font-bold">&gt; KERNEL:</span> Linux Zen (7.2.8-zen1)</div>
+                <div><span class="text-blue-400 font-bold">&gt; DESKTOP:</span> KDE Plasma 6.7.5 (Wayland)</div>
+                <div><span class="text-blue-400 font-bold">&gt; CPU:</span> Intel i5-4570 (4) @ 3.60 GHz</div>
+                <div><span class="text-blue-400 font-bold">&gt; RAM:</span> 16 GiB DDR3 (15.50 GiB)</div>
+                <div><span class="text-blue-400 font-bold">&gt; SHELL:</span> Fish Shell</div>
+                <div><span class="text-blue-400 font-bold">&gt; TERM:</span> Konsole 26.8.1</div>
               </div>
             </div>
           </div>
@@ -462,7 +469,7 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
           },
           system: {
             online: "ONLINE",
-            status: "TTY1: erm@archbox",
+            status: "TTY1: erm@prodesk600g1",
           },
           avatar: {
             badge: "PROD",
@@ -471,6 +478,9 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
             name: "ERM / Metwally",
             arabicName: "(متولي)",
             bio: "a humble highschooler with interesting hobbies",
+          },
+          pills: {
+            foss: "[ FOSS ENTHUSIAST ]",
           },
           cyclingWords: [
             "digital forensics",
@@ -484,7 +494,7 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
           links: {
             github: {
               title: "GitHub",
-              subtitle: "github.com/real // Code, tools & repos",
+              subtitle: "github.com/real-erm // Code, tools & repos",
             },
             discord: {
               title: "Discord Profile",
@@ -523,7 +533,7 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
           },
           system: {
             online: "متصل الآن",
-            status: "الطرفية: erm@archbox",
+            status: "الطرفية: erm@prodesk600g1",
           },
           avatar: {
             badge: "نشط",
@@ -532,6 +542,9 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
             name: "ERM / متولي",
             arabicName: "(Metwally)",
             bio: "طالب ثانوية عامة, لاعب CTFs",
+          },
+          pills: {
+            foss: "[ محب للبرمجيات الحرة FOSS ]",
           },
           cyclingWords: [
             "تحليل جنائي رقمي",
@@ -545,7 +558,7 @@ import '@fontsource/ibm-plex-sans-arabic/700.css';
           links: {
             github: {
               title: "جيتهب",
-              subtitle: "github.com/real // الأكواد والمشاريع المفتوحة",
+              subtitle: "github.com/real-erm // الأكواد والمشاريع المفتوحة",
             },
             discord: {
               title: "حساب ديسكورد",
