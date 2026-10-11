@@ -1,0 +1,1126 @@
+---
+import { Icon } from 'astro-icon/components';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '@fontsource/ibm-plex-sans-arabic/400.css';
+import '@fontsource/ibm-plex-sans-arabic/600.css';
+import '@fontsource/ibm-plex-sans-arabic/700.css';
+---
+
+<!doctype html>
+<html lang="en" dir="ltr" class="dark scroll-smooth bg-black text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ERM / Metwally // Cyber-Neobrutalism Portfolio</title>
+    <meta name="description" content="Personal cyber-neobrutalist portfolio & vault for ERM / Metwally - Digital forensics, Android modder, CTF player." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/png" href="/avatar.png" />
+    <!-- Preload avatar -->
+    <link rel="preload" href="/avatar.png" as="image" />
+
+    <style is:global>
+      /* Zero rounded corners everywhere */
+      *, *::before, *::after {
+        border-radius: 0 !important;
+      }
+
+      /* Cyber scanline overlay */
+      .scanlines {
+        background: linear-gradient(
+          to bottom,
+          rgba(255,255,255,0),
+          rgba(255,255,255,0) 50%,
+          rgba(0, 0, 0, 0.35) 50%,
+          rgba(0, 0, 0, 0.35)
+        );
+        background-size: 100% 4px;
+      }
+
+      /* Subtle Cyber Grid */
+      .cyber-grid {
+        background-image: 
+          radial-gradient(rgba(37, 99, 235, 0.18) 1px, transparent 1px),
+          radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 28px 28px, 14px 14px;
+        background-position: 0 0, 14px 14px;
+      }
+
+      /* Mechanical brutalist button press effect */
+      .brutal-btn {
+        transition: transform 0.08s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.08s cubic-bezier(0.2, 0, 0, 1);
+      }
+      .brutal-btn:hover {
+        transform: translate(-2px, -2px);
+      }
+      .brutal-btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0px 0px 0px 0px #2563eb !important;
+      }
+
+      /* Custom Monospace / Arabic dynamic switching */
+      html[dir="rtl"] body {
+        font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+      }
+      html[dir="ltr"] body {
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2563eb;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3b82f6;
+      }
+    </style>
+  </head>
+
+  <body class="bg-black text-white min-h-screen selection:bg-blue-600 selection:text-white relative overflow-x-hidden">
+    <!-- Background cyber grid & scanlines -->
+    <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+    <div class="fixed inset-0 scanlines pointer-events-none z-10 opacity-60"></div>
+
+    <!-- Toast Notification for clipboard & actions -->
+    <div
+      id="cyber-toast"
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-200 border-2 border-white bg-blue-600 text-white font-mono text-xs sm:text-sm font-bold px-4 py-2 shadow-[4px_4px_0px_0px_#ffffff] flex items-center gap-2"
+    >
+      <Icon name="lucide:check" class="w-4 h-4 text-white" />
+      <span id="toast-message">COPIED TO CLIPBOARD</span>
+    </div>
+
+    <!-- SHARP FLOATING TOP DOCK -->
+    <header class="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-xl">
+      <nav
+        class="bg-[#09090b]/95 backdrop-blur-md border-2 border-white sm:border-blue-600 shadow-[4px_4px_0px_0px_#2563eb] flex items-stretch justify-between p-1 select-none"
+        aria-label="Main Navigation Dock"
+      >
+        <!-- 3 Tab Buttons -->
+        <div class="flex items-stretch gap-1 sm:gap-1.5 flex-1">
+          <button
+            type="button"
+            data-tab="id"
+            class="tab-trigger brutal-btn flex-1 py-1.5 sm:py-2 px-2 text-center text-xs sm:text-sm font-bold border border-white/20 sm:border-blue-600/50 bg-blue-600 text-white shadow-[2px_2px_0px_0px_#ffffff] flex items-center justify-center gap-1.5"
+            aria-selected="true"
+          >
+            <Icon name="lucide:terminal" class="w-3.5 h-3.5 shrink-0 hidden sm:inline-block" />
+            <span data-i18n="dock.id">// 01.ID</span>
+          </button>
+
+          <button
+            type="button"
+            data-tab="vault"
+            class="tab-trigger brutal-btn flex-1 py-1.5 sm:py-2 px-2 text-center text-xs sm:text-sm font-bold border border-white/10 bg-black text-zinc-400 hover:text-white hover:bg-[#12141a] flex items-center justify-center gap-1.5"
+            aria-selected="false"
+          >
+            <Icon name="lucide:shield" class="w-3.5 h-3.5 shrink-0 hidden sm:inline-block text-blue-500" />
+            <span data-i18n="dock.vault">// 02.VAULT</span>
+          </button>
+
+          <button
+            type="button"
+            data-tab="logs"
+            class="tab-trigger brutal-btn flex-1 py-1.5 sm:py-2 px-2 text-center text-xs sm:text-sm font-bold border border-white/10 bg-black text-zinc-400 hover:text-white hover:bg-[#12141a] flex items-center justify-center gap-1.5"
+            aria-selected="false"
+          >
+            <Icon name="lucide:file-text" class="w-3.5 h-3.5 shrink-0 hidden sm:inline-block text-blue-500" />
+            <span data-i18n="dock.logs">// 03.LOGS</span>
+          </button>
+        </div>
+
+        <!-- Language Switcher & SFX Audio Toggle -->
+        <div class="flex items-stretch gap-1 pl-1 rtl:pr-1 rtl:pl-0 border-l rtl:border-r rtl:border-l-0 border-zinc-800 ml-1 rtl:mr-1 rtl:ml-0">
+          <button
+            id="lang-toggle"
+            type="button"
+            title="Toggle Language (EN / AR)"
+            class="brutal-btn px-2.5 sm:px-3 py-1.5 sm:py-2 border border-white/30 bg-black text-white hover:bg-blue-600 hover:border-white text-xs sm:text-sm font-bold flex items-center gap-1 shadow-[2px_2px_0px_0px_#2563eb]"
+          >
+            <Icon name="lucide:globe" class="w-3.5 h-3.5 text-blue-400 shrink-0" />
+            <span id="lang-label" class="tracking-wide">AR / عربي</span>
+          </button>
+
+          <button
+            id="sfx-toggle"
+            type="button"
+            title="Toggle Mechanical Cyber Sound"
+            class="brutal-btn px-2 py-1.5 border border-white/20 bg-black text-zinc-400 hover:text-white text-xs font-bold hidden sm:flex items-center justify-center"
+          >
+            <span id="sfx-icon">🔊</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- MAIN SILHOUETTE CONTAINER -->
+    <main class="relative z-20 max-w-xl mx-auto pt-20 sm:pt-24 pb-14 px-3 sm:px-4">
+      <!-- CENTERED SILHOUETTE CARD -->
+      <section
+        class="bg-[#09090b] border-2 border-white sm:border-blue-600 shadow-[6px_6px_0px_0px_#2563eb] sm:shadow-[8px_8px_0px_0px_#2563eb] overflow-hidden"
+      >
+        <!-- CARD TOP STATUS BAR (TTY / Cyber Bar) -->
+        <div class="bg-black border-b-2 border-zinc-800 px-3 sm:px-4 py-2 flex items-center justify-between text-[11px] sm:text-xs font-mono text-zinc-400 select-none">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 bg-blue-600 border border-white/40"></span>
+            <span class="text-white font-bold tracking-wider">TTY1: erm@archbox</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1.5 text-zinc-300">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span id="live-status-text" data-i18n="system.online">ONLINE</span>
+            </span>
+            <span class="text-zinc-500 hidden sm:inline">|</span>
+            <span id="live-clock" class="text-blue-400 font-bold hidden sm:inline">00:00:00 UTC</span>
+          </div>
+        </div>
+
+        <!-- PROFILE HERO HEADER -->
+        <div class="p-5 sm:p-7 border-b-2 border-zinc-800 bg-[#0d0f12]">
+          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 text-center sm:text-left rtl:sm:text-right">
+            <!-- AVATAR BOX -->
+            <div class="relative shrink-0">
+              <div class="w-24 h-24 sm:w-28 sm:h-28 border-2 border-blue-600 bg-black shadow-[4px_4px_0px_0px_#ffffff] relative overflow-hidden group">
+                <img
+                  src="/avatar.png"
+                  alt="ERM Avatar"
+                  width="112"
+                  height="112"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="eager"
+                />
+                <!-- Cyber scanline over avatar -->
+                <div class="absolute inset-0 scanlines pointer-events-none opacity-40"></div>
+              </div>
+              <!-- Status Badge on avatar corner -->
+              <span
+                class="absolute -bottom-1.5 -right-1.5 rtl:-right-auto rtl:-left-1.5 bg-emerald-500 text-black text-[9px] font-bold px-1.5 py-0.5 border border-black shadow-[2px_2px_0px_0px_#000000]"
+                data-i18n="avatar.badge"
+              >
+                PROD
+              </span>
+            </div>
+
+            <!-- IDENTITY INFO -->
+            <div class="flex-1 min-w-0">
+              <!-- Name & Nickname -->
+              <div class="flex flex-wrap items-center justify-center sm:justify-start rtl:sm:justify-start gap-2 mb-1.5">
+                <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white font-mono uppercase">
+                  <span data-i18n="profile.name">ERM / Metwally</span>
+                  <span class="text-blue-500 ml-1 rtl:mr-1 text-lg sm:text-xl font-normal" data-i18n="profile.arabicName">(متولي)</span>
+                </h1>
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 border border-white tracking-widest uppercase">
+                  ROOT
+                </span>
+              </div>
+
+              <!-- Terminal Typewriter Subtitle -->
+              <div class="bg-black border border-zinc-700 px-3 py-1.5 my-2.5 font-mono text-xs sm:text-sm text-left rtl:text-right shadow-[2px_2px_0px_0px_#2563eb] flex items-center gap-1.5 overflow-hidden">
+                <span class="text-blue-400 font-bold shrink-0">root@box:~#</span>
+                <span id="typewriter-text" class="text-zinc-200 font-semibold tracking-wide truncate">digital forensics</span>
+                <span id="typewriter-cursor" class="text-blue-500 font-bold animate-pulse">_</span>
+              </div>
+
+              <!-- Short Bio -->
+              <p
+                id="profile-bio"
+                class="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-md mt-2 font-normal"
+                data-i18n="profile.bio"
+              >
+                a humble highschooler with interesting hobbies
+              </p>
+
+              <!-- Cyber Attributes Pills -->
+              <div class="flex flex-wrap gap-1.5 mt-3.5 justify-center sm:justify-start rtl:sm:justify-start">
+                <span class="bg-[#12141a] text-zinc-300 border border-zinc-700 text-[10px] sm:text-[11px] font-bold px-2 py-0.5 font-mono">
+                  [ OS: ARCH LINUX ]
+                </span>
+                <span class="bg-[#12141a] text-blue-400 border border-blue-900 text-[10px] sm:text-[11px] font-bold px-2 py-0.5 font-mono">
+                  [ CTF: PLAYER ]
+                </span>
+                <span class="bg-[#12141a] text-zinc-300 border border-zinc-700 text-[10px] sm:text-[11px] font-bold px-2 py-0.5 font-mono">
+                  [ ANDROID GSI ]
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB PANELS SECTION                         -->
+        <!-- ========================================== -->
+        <div class="p-4 sm:p-6 bg-[#09090b]">
+
+          <!-- ======================================== -->
+          <!-- TAB 01: // 01.ID (Links & Identity)      -->
+          <!-- ======================================== -->
+          <div id="tab-id" class="tab-panel space-y-3.5">
+            <!-- Tab Header Banner -->
+            <div class="border border-zinc-800 bg-black/60 p-2.5 flex items-center justify-between text-xs text-zinc-400 font-mono">
+              <span class="text-blue-400 font-bold" data-i18n="tabId.title">// VERIFIED IDENTITIES & LINKS</span>
+              <span class="text-[10px] border border-zinc-700 px-1 py-0.5">AUTH: OK</span>
+            </div>
+
+            <!-- LINK 1: GITHUB -->
+            <a
+              href="https://github.com/real"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="brutal-btn block group border-2 border-white/80 hover:border-blue-600 bg-[#0d0f12] hover:bg-[#12141a] p-3.5 sm:p-4 shadow-[4px_4px_0px_0px_#2563eb] text-white"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 border border-white/20 bg-black flex items-center justify-center shrink-0 group-hover:border-blue-500">
+                    <Icon name="simple-icons:github" class="w-5 h-5 text-white group-hover:text-blue-400 transition-colors" />
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-bold text-sm sm:text-base tracking-wide" data-i18n="links.github.title">GitHub</span>
+                      <span class="text-[10px] bg-zinc-800 text-zinc-300 px-1.5 py-0.2 border border-zinc-600 font-mono">SOURCE</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 font-mono mt-0.5" data-i18n="links.github.subtitle">github.com/real // Code, tools & repos</p>
+                  </div>
+                </div>
+                <div class="text-zinc-500 group-hover:text-blue-400 transition-colors pl-2 rtl:pr-2 rtl:pl-0">
+                  <Icon name="lucide:external-link" class="w-4 h-4" />
+                </div>
+              </div>
+            </a>
+
+            <!-- LINK 2: DISCORD -->
+            <div class="border-2 border-white/80 hover:border-blue-600 bg-[#0d0f12] p-3.5 sm:p-4 shadow-[4px_4px_0px_0px_#2563eb] text-white">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <a
+                  href="https://discord.com/users/1261253325551304718"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-3 group flex-1 min-w-[200px]"
+                >
+                  <div class="w-10 h-10 border border-white/20 bg-[#5865F2]/20 flex items-center justify-center shrink-0 group-hover:border-blue-500">
+                    <Icon name="simple-icons:discord" class="w-5 h-5 text-[#5865F2]" />
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-bold text-sm sm:text-base tracking-wide" data-i18n="links.discord.title">Discord Profile</span>
+                      <span class="text-[10px] bg-emerald-950 text-emerald-400 px-1.5 py-0.2 border border-emerald-800 font-mono">ONLINE</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 font-mono mt-0.5">ID: 1261253325551304718</p>
+                  </div>
+                </a>
+
+                <!-- Quick Action Buttons -->
+                <div class="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    class="copy-btn brutal-btn border border-white/40 bg-black hover:bg-blue-600 px-2.5 py-1 text-xs font-mono font-bold flex items-center gap-1 text-zinc-200 hover:text-white"
+                    data-copy="1261253325551304718"
+                    title="Copy Discord ID"
+                  >
+                    <Icon name="lucide:copy" class="w-3.5 h-3.5" />
+                    <span data-i18n="links.discord.copy">COPY ID</span>
+                  </button>
+                  <a
+                    href="https://discord.com/users/1261253325551304718"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="brutal-btn border border-blue-600 bg-blue-600 hover:bg-blue-700 px-2.5 py-1 text-xs font-mono font-bold text-white flex items-center gap-1"
+                  >
+                    <span data-i18n="links.discord.open">OPEN</span>
+                    <Icon name="lucide:external-link" class="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- LINK 3: CTFTIME PROFILE (Placeholder Link) -->
+            <a
+              href="#"
+              class="brutal-btn block group border-2 border-zinc-800 hover:border-blue-600 bg-[#0d0f12] hover:bg-[#12141a] p-3.5 sm:p-4 shadow-[4px_4px_0px_0px_#ffffff] text-white"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 border border-white/20 bg-black flex items-center justify-center shrink-0 group-hover:border-blue-500">
+                    <Icon name="lucide:flag" class="w-5 h-5 text-amber-400" />
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-bold text-sm sm:text-base tracking-wide" data-i18n="links.ctf.title">CTFtime Profile</span>
+                      <span class="text-[10px] bg-amber-950 text-amber-300 px-1.5 py-0.2 border border-amber-800 font-mono">PLAYER</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 font-mono mt-0.5" data-i18n="links.ctf.subtitle">Forensics, Reverse & Crypto challenges</p>
+                  </div>
+                </div>
+                <div class="text-zinc-500 group-hover:text-blue-400 transition-colors pl-2 rtl:pr-2 rtl:pl-0">
+                  <Icon name="lucide:external-link" class="w-4 h-4" />
+                </div>
+              </div>
+            </a>
+
+            <!-- LINK 4: PGP PUBLIC KEY (Placeholder Link with Copy) -->
+            <div class="border-2 border-zinc-800 hover:border-white bg-[#0d0f12] p-3.5 sm:p-4 shadow-[4px_4px_0px_0px_#2563eb] text-white">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-3 flex-1 min-w-[200px]">
+                  <div class="w-10 h-10 border border-white/20 bg-black flex items-center justify-center shrink-0">
+                    <Icon name="lucide:key" class="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-bold text-sm sm:text-base tracking-wide" data-i18n="links.pgp.title">PGP Public Key</span>
+                      <span class="text-[10px] bg-blue-950 text-blue-300 px-1.5 py-0.2 border border-blue-800 font-mono">RSA 4096</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 font-mono mt-0.5">0x7F4A 2B3C 90D1 E820</p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="copy-btn brutal-btn border border-white/40 bg-black hover:bg-blue-600 px-2.5 py-1 text-xs font-mono font-bold flex items-center gap-1 text-zinc-200 hover:text-white"
+                  data-copy="-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: OpenPGP\n\nmQGNBF4...ERM-KEY...0x7F4A2B3C90D1E820\n-----END PGP PUBLIC KEY BLOCK-----"
+                  title="Copy PGP Public Key"
+                >
+                  <Icon name="lucide:copy" class="w-3.5 h-3.5" />
+                  <span data-i18n="links.pgp.copy">COPY KEY</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- SYSTEM HARDWARE / RIG SPECS BOX -->
+            <div class="mt-4 border border-zinc-800 bg-black p-3.5 font-mono text-xs text-zinc-400">
+              <div class="text-white font-bold mb-2 flex items-center gap-2">
+                <Icon name="lucide:terminal" class="w-3.5 h-3.5 text-blue-400" />
+                <span data-i18n="specs.title">SYS_CONFIG // WORKSTATION</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <div><span class="text-zinc-600">&gt; OS:</span> Arch Linux (Zen Kernel)</div>
+                <div><span class="text-zinc-600">&gt; WM:</span> Hyprland / Wayland</div>
+                <div><span class="text-zinc-600">&gt; SHELL:</span> Zsh + Starship</div>
+                <div><span class="text-zinc-600">&gt; EDITOR:</span> Neovim / VS Code</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================================== -->
+          <!-- TAB 02: // 02.VAULT (Projects & Files)   -->
+          <!-- ======================================== -->
+          <div id="tab-vault" class="tab-panel hidden space-y-4">
+            <!-- Vault Header Banner -->
+            <div class="border border-zinc-800 bg-black/60 p-2.5 flex items-center justify-between text-xs text-zinc-400 font-mono">
+              <span class="text-blue-400 font-bold" data-i18n="vault.header">// PROJECTS, TOOLS & ARTIFACTS</span>
+              <span class="text-[10px] bg-blue-950 text-blue-300 border border-blue-800 px-1.5 py-0.5">ENCRYPTED</span>
+            </div>
+
+            <!-- PROJECT 1 -->
+            <article class="border-2 border-white/80 bg-[#0d0f12] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#2563eb] relative">
+              <!-- Coming Soon Ribbon Badge -->
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2.5">
+                <span class="font-mono text-[10px] bg-blue-900/60 text-blue-300 border border-blue-500 px-2 py-0.5 font-bold" data-i18n="project1.badge">
+                  TOOL / PYTHON / REPO
+                </span>
+                <span class="font-mono text-[10px] bg-amber-500 text-black border border-amber-300 px-2 py-0.5 font-extrabold tracking-wider animate-pulse" data-i18n="common.comingSoon">
+                  COMING SOON
+                </span>
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-white font-mono tracking-tight" data-i18n="project1.title">
+                AeroDump Forensic Toolkit
+              </h2>
+
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed" data-i18n="project1.desc">
+                Automated memory dump acquisition and volatile artifact parser for rooted Android devices and Linux kernels.
+              </p>
+
+              <!-- Action Buttons -->
+              <div class="flex items-center gap-2 mt-4 pt-3 border-t border-zinc-800 font-mono text-xs">
+                <a
+                  href="https://github.com/real"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="brutal-btn border border-white bg-black hover:bg-blue-600 text-white px-3 py-1.5 font-bold flex items-center gap-1.5"
+                >
+                  <Icon name="simple-icons:github" class="w-3.5 h-3.5" />
+                  <span data-i18n="common.repo">REPOSITORY</span>
+                </a>
+                <a
+                  href="#"
+                  class="brutal-btn border border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 font-bold flex items-center gap-1.5"
+                  title="Direct Download"
+                >
+                  <Icon name="lucide:download" class="w-3.5 h-3.5" />
+                  <span data-i18n="common.download">DOWNLOAD</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- PROJECT 2 -->
+            <article class="border-2 border-white/80 bg-[#0d0f12] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#ffffff] relative">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2.5">
+                <span class="font-mono text-[10px] bg-blue-900/60 text-blue-300 border border-blue-500 px-2 py-0.5 font-bold" data-i18n="project2.badge">
+                  GSI / ANDROID / BASH
+                </span>
+                <span class="font-mono text-[10px] bg-amber-500 text-black border border-amber-300 px-2 py-0.5 font-extrabold tracking-wider animate-pulse" data-i18n="common.comingSoon">
+                  COMING SOON
+                </span>
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-white font-mono tracking-tight" data-i18n="project2.title">
+                TrebleDroid GSI Modding Suite
+              </h2>
+
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed" data-i18n="project2.desc">
+                Dynamic partition unpacker and vendor overlay injector for booting vanilla AOSP GSIs on OEM locked devices.
+              </p>
+
+              <div class="flex items-center gap-2 mt-4 pt-3 border-t border-zinc-800 font-mono text-xs">
+                <a
+                  href="https://github.com/real"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="brutal-btn border border-white bg-black hover:bg-blue-600 text-white px-3 py-1.5 font-bold flex items-center gap-1.5"
+                >
+                  <Icon name="simple-icons:github" class="w-3.5 h-3.5" />
+                  <span data-i18n="common.repo">REPOSITORY</span>
+                </a>
+                <a
+                  href="#"
+                  class="brutal-btn border border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 font-bold flex items-center gap-1.5"
+                  title="Direct Download"
+                >
+                  <Icon name="lucide:download" class="w-3.5 h-3.5" />
+                  <span data-i18n="common.download">DOWNLOAD</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- PROJECT 3 -->
+            <article class="border-2 border-zinc-800 hover:border-blue-600 bg-[#0d0f12] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#2563eb] relative">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2.5">
+                <span class="font-mono text-[10px] bg-zinc-800 text-zinc-300 border border-zinc-600 px-2 py-0.5 font-bold" data-i18n="project3.badge">
+                  LINUX / LUKS / WAYLAND
+                </span>
+                <span class="font-mono text-[10px] bg-amber-500 text-black border border-amber-300 px-2 py-0.5 font-extrabold tracking-wider animate-pulse" data-i18n="common.comingSoon">
+                  COMING SOON
+                </span>
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-white font-mono tracking-tight" data-i18n="project3.title">
+                Arch-Hardened AutoConfig
+              </h2>
+
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed" data-i18n="project3.desc">
+                Declarative security hardening scripts, encrypted LUKS setups, and AppArmor profiles for CTF workstations.
+              </p>
+
+              <div class="flex items-center gap-2 mt-4 pt-3 border-t border-zinc-800 font-mono text-xs">
+                <a
+                  href="https://github.com/real"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="brutal-btn border border-white bg-black hover:bg-blue-600 text-white px-3 py-1.5 font-bold flex items-center gap-1.5"
+                >
+                  <Icon name="simple-icons:github" class="w-3.5 h-3.5" />
+                  <span data-i18n="common.repo">REPOSITORY</span>
+                </a>
+                <a
+                  href="#"
+                  class="brutal-btn border border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 font-bold flex items-center gap-1.5"
+                >
+                  <Icon name="lucide:download" class="w-3.5 h-3.5" />
+                  <span data-i18n="common.download">DOWNLOAD</span>
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <!-- ======================================== -->
+          <!-- TAB 03: // 03.LOGS (Writeups & Blog)     -->
+          <!-- ======================================== -->
+          <div id="tab-logs" class="tab-panel hidden space-y-4">
+            <!-- Logs Header Banner -->
+            <div class="border border-zinc-800 bg-black/60 p-2.5 flex items-center justify-between text-xs text-zinc-400 font-mono">
+              <span class="text-blue-400 font-bold" data-i18n="logs.header">// WRITEUPS & SECURITY LOGS</span>
+              <span class="text-[10px] border border-zinc-700 px-1 py-0.5">3 ENTRIES</span>
+            </div>
+
+            <!-- POST 1 -->
+            <article class="border-2 border-white/80 hover:border-blue-600 bg-[#0d0f12] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#2563eb] group">
+              <div class="flex items-center justify-between text-xs font-mono text-zinc-400 mb-2">
+                <span class="text-blue-400 font-bold border border-blue-900 bg-blue-950/60 px-1.5 py-0.5 text-[10px]" data-i18n="post1.category">
+                  #FORENSICS
+                </span>
+                <span class="text-zinc-500 font-mono" data-i18n="post1.date">OCT 2026</span>
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-white font-mono group-hover:text-blue-400 transition-colors" data-i18n="post1.title">
+                Investigating Volatile Memory Artifacts in Android 14
+              </h2>
+
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed" data-i18n="post1.excerpt">
+                A breakdown of dumped physical RAM pages, process memory extraction, and recovering cryptographic keys without screen unlocking.
+              </p>
+
+              <div class="mt-3.5 pt-2.5 border-t border-zinc-800 flex items-center justify-between text-xs font-mono">
+                <span class="text-zinc-500">READ_TIME: 7 MIN</span>
+                <a href="#" class="text-blue-400 font-bold hover:underline flex items-center gap-1">
+                  <span data-i18n="common.readLog">READ WRITEUP</span>
+                  <Icon name="lucide:external-link" class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </article>
+
+            <!-- POST 2 -->
+            <article class="border-2 border-white/80 hover:border-blue-600 bg-[#0d0f12] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#ffffff] group">
+              <div class="flex items-center justify-between text-xs font-mono text-zinc-400 mb-2">
+                <span class="text-amber-400 font-bold border border-amber-900 bg-amber-950/60 px-1.5 py-0.5 text-[10px]" data-i18n="post2.category">
+                  #CRYPTO / #LINUX
+                </span>
+                <span class="text-zinc-500 font-mono" data-i18n="post2.date">SEP 2026</span>
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-white font-mono group-hover:text-blue-400 transition-colors" data-i18n="post2.title">
+                Reverse Engineering Custom XOR Stream Ciphers in CTF Binaries
+              </h2>
+
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed" data-i18n="post2.excerpt">
+                Frequency analysis heuristics, Ghidra decompilation patterns, and writing automated solver scripts in Python.
+              </p>
+
+              <div class="mt-3.5 pt-2.5 border-t border-zinc-800 flex items-center justify-between text-xs font-mono">
+                <span class="text-zinc-500">READ_TIME: 5 MIN</span>
+                <a href="#" class="text-blue-400 font-bold hover:underline flex items-center gap-1">
+                  <span data-i18n="common.readLog">READ WRITEUP</span>
+                  <Icon name="lucide:external-link" class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </article>
+
+            <!-- POST 3 -->
+            <article class="border-2 border-zinc-800 hover:border-blue-600 bg-[#0d0f12] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#2563eb] group">
+              <div class="flex items-center justify-between text-xs font-mono text-zinc-400 mb-2">
+                <span class="text-emerald-400 font-bold border border-emerald-900 bg-emerald-950/60 px-1.5 py-0.5 text-[10px]" data-i18n="post3.category">
+                  #REVERSE / #ANDROID
+                </span>
+                <span class="text-zinc-500 font-mono" data-i18n="post3.date">AUG 2026</span>
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-white font-mono group-hover:text-blue-400 transition-colors" data-i18n="post3.title">
+                Bypassing Play Integrity Hardware Attestation on Generic GSIs
+              </h2>
+
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed" data-i18n="post3.excerpt">
+                Analyzing Keystore keymint spoofing, custom Zygisk injection, and SELinux policy circumvention for rooted custom ROMs.
+              </p>
+
+              <div class="mt-3.5 pt-2.5 border-t border-zinc-800 flex items-center justify-between text-xs font-mono">
+                <span class="text-zinc-500">READ_TIME: 10 MIN</span>
+                <a href="#" class="text-blue-400 font-bold hover:underline flex items-center gap-1">
+                  <span data-i18n="common.readLog">READ WRITEUP</span>
+                  <Icon name="lucide:external-link" class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </article>
+          </div>
+
+        </div>
+
+        <!-- CARD BRUTALIST FOOTER -->
+        <footer class="bg-black border-t-2 border-zinc-800 p-4 sm:p-5 font-mono text-xs text-zinc-500 select-none">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left rtl:sm:text-right">
+            <div>
+              <span class="text-white font-bold">&gt; ERM_SYSTEM:</span>
+              <span data-i18n="footer.tagline">AMOLED DARK // ZERO ROUNDED CORNERS</span>
+            </div>
+            <div class="text-[11px] text-zinc-400">
+              <span>HOSTED ON <span class="text-amber-400 font-bold">CLOUDFLARE PAGES</span></span>
+            </div>
+          </div>
+          <div class="mt-2 text-center text-[10px] text-zinc-600">
+            [ SHA256: 7f3a09b... // SESSION ENCRYPTED ]
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <!-- CLIENT-SIDE SCRIPT: TAB SWITCHER, TYPEWRITER, BILINGUAL ENGINE, SOUND EFFECTS -->
+    <script is:inline>
+      // ========================================================
+      // 1. TRANSLATION DICTIONARY (EN & AR)
+      // ========================================================
+      const translations = {
+        en: {
+          dock: {
+            id: "// 01.ID",
+            vault: "// 02.VAULT",
+            logs: "// 03.LOGS",
+          },
+          system: {
+            online: "ONLINE",
+            status: "TTY1: erm@archbox",
+          },
+          avatar: {
+            badge: "PROD",
+          },
+          profile: {
+            name: "ERM / Metwally",
+            arabicName: "(متولي)",
+            bio: "a humble highschooler with interesting hobbies",
+          },
+          cyclingWords: [
+            "digital forensics",
+            "android modder",
+            "ctf player",
+            "arch linux user",
+          ],
+          tabId: {
+            title: "// VERIFIED IDENTITIES & LINKS",
+          },
+          links: {
+            github: {
+              title: "GitHub",
+              subtitle: "github.com/real // Code, tools & repos",
+            },
+            discord: {
+              title: "Discord Profile",
+              copy: "COPY ID",
+              open: "OPEN",
+            },
+            ctf: {
+              title: "CTFtime Profile",
+              subtitle: "Forensics, Reverse & Crypto challenges",
+            },
+            pgp: {
+              title: "PGP Public Key",
+              copy: "COPY KEY",
+            },
+          },
+          specs: {
+            title: "SYS_CONFIG // WORKSTATION",
+          },
+          vault: {
+            header: "// PROJECTS, TOOLS & ARTIFACTS",
+          },
+          project1: {
+            badge: "TOOL / PYTHON / REPO",
+            title: "AeroDump Forensic Toolkit",
+            desc: "Automated memory dump acquisition and volatile artifact parser for rooted Android devices and Linux kernels.",
+          },
+          project2: {
+            badge: "GSI / ANDROID / BASH",
+            title: "TrebleDroid GSI Modding Suite",
+            desc: "Dynamic partition unpacker and vendor overlay injector for booting vanilla AOSP GSIs on OEM locked devices.",
+          },
+          project3: {
+            badge: "LINUX / LUKS / WAYLAND",
+            title: "Arch-Hardened AutoConfig",
+            desc: "Declarative security hardening scripts, encrypted LUKS setups, and AppArmor profiles for CTF workstations.",
+          },
+          logs: {
+            header: "// WRITEUPS & SECURITY LOGS",
+          },
+          post1: {
+            category: "#FORENSICS",
+            date: "OCT 2026",
+            title: "Investigating Volatile Memory Artifacts in Android 14",
+            excerpt: "A breakdown of dumped physical RAM pages, process memory extraction, and recovering cryptographic keys without screen unlocking.",
+          },
+          post2: {
+            category: "#CRYPTO / #LINUX",
+            date: "SEP 2026",
+            title: "Reverse Engineering Custom XOR Stream Ciphers in CTF Binaries",
+            excerpt: "Frequency analysis heuristics, Ghidra decompilation patterns, and writing automated solver scripts in Python.",
+          },
+          post3: {
+            category: "#REVERSE / #ANDROID",
+            date: "AUG 2026",
+            title: "Bypassing Play Integrity Hardware Attestation on Generic GSIs",
+            excerpt: "Analyzing Keystore keymint spoofing, custom Zygisk injection, and SELinux policy circumvention for rooted custom ROMs.",
+          },
+          common: {
+            comingSoon: "COMING SOON",
+            repo: "REPOSITORY",
+            download: "DOWNLOAD",
+            readLog: "READ WRITEUP",
+            copiedToast: "COPIED TO CLIPBOARD",
+          },
+          footer: {
+            tagline: "AMOLED DARK // ZERO ROUNDED CORNERS",
+          },
+          langBtn: "AR / عربي",
+        },
+        ar: {
+          dock: {
+            id: "// ٠١.الهوية",
+            vault: "// ٠٢.المشاريع",
+            logs: "// ٠٣.السجلات",
+          },
+          system: {
+            online: "متصل الآن",
+            status: "الطرفية: erm@archbox",
+          },
+          avatar: {
+            badge: "نشط",
+          },
+          profile: {
+            name: "ERM / متولي",
+            arabicName: "(Metwally)",
+            bio: "طالب ثانوية عامة, لاعب CTFs",
+          },
+          cyclingWords: [
+            "تحليل جنائي رقمي",
+            "تعديل رومات أندرويد",
+            "لاعب تحديات CTF",
+            "مستخدم Arch Linux",
+          ],
+          tabId: {
+            title: "// الروابط والحسابات الموثقة",
+          },
+          links: {
+            github: {
+              title: "جيتهب",
+              subtitle: "github.com/real // الأكواد والمشاريع المفتوحة",
+            },
+            discord: {
+              title: "حساب ديسكورد",
+              copy: "نسخ المعرّف",
+              open: "فتح",
+            },
+            ctf: {
+              title: "حساب CTFtime",
+              subtitle: "تحديات التحليل الجنائي والهندسة العكسية والتشفير",
+            },
+            pgp: {
+              title: "مفتاح PGP العام",
+              copy: "نسخ المفتاح",
+            },
+          },
+          specs: {
+            title: "تهيئة النظام // بيئة العمل",
+          },
+          vault: {
+            header: "// الأدوات والمشاريع والملفات",
+          },
+          project1: {
+            badge: "أداة / بايثون / مستودع",
+            title: "حقيبة التحليل الجنائي AeroDump",
+            desc: "أداة آلية لسحب وتحليل مخلفات الذاكرة العشوائية الحية لأجهزة أندرويد الرووت ونواة لينكس.",
+          },
+          project2: {
+            badge: "GSI / أندرويد / BASH",
+            title: "حزمة تعديل رومات TrebleDroid GSI",
+            desc: "أداة لتفكيك وتعديل أقسام النظام وحقن ملفات الفيندور لتشغيل رومات أندرويد الخام بدون قيود.",
+          },
+          project3: {
+            badge: "لينكس / LUKS / WAYLAND",
+            title: "سكربتات حماية وتهيئة Arch Linux",
+            desc: "ملفات تهيئة تلقائية وسكربتات لتأمين النظام وتشفير الأقراص بـ LUKS وضبط AppArmor لأجهزة التحليل وCTF.",
+          },
+          logs: {
+            header: "// شروحات وتقارير أمنية",
+          },
+          post1: {
+            category: "#تحليل_جنائي",
+            date: "أكتوبر ٢٠٢٦",
+            title: "تحليل مخلفات الذاكرة الحية في أندرويد 14",
+            excerpt: "شرح استخراج صفحات الذاكرة العشوائية ومفاتيح التشفير وجداول العمليات الحية للأجهزة المشفرة بدون فتح القفل.",
+          },
+          post2: {
+            category: "#تشفير / #لينكس",
+            date: "سبتمبر ٢٠٢٦",
+            title: "الهندسة العكسية لخوارزميات تشفير XOR في تحديات CTF",
+            excerpt: "تحليل التردد الإحصائي وأنماط التفكيك في Ghidra وبناء سكربتات الحل الآلي بلغة بايثون.",
+          },
+          post3: {
+            category: "#هندسة_عكسية / #أندرويد",
+            date: "أغسطس ٢٠٢٦",
+            title: "تخطي فحص النزاهة Play Integrity في رومات GSI",
+            excerpt: "تحليل خداع Keystore وتمرير شهادات الأمان عبر موديولات Zygisk وحقن السياسات الأمنية.",
+          },
+          common: {
+            comingSoon: "قريباً",
+            repo: "المستودع",
+            download: "تحميل",
+            readLog: "قراءة الشرح",
+            copiedToast: "تم النسخ إلى الحافظة بنجاح",
+          },
+          footer: {
+            tagline: "أسود AMOLED نقي // حواف حادة بالكامل",
+          },
+          langBtn: "EN / الإنجليزية",
+        },
+      };
+
+      // Current Language State
+      let currentLang = 'en';
+      let sfxEnabled = true;
+
+      // ========================================================
+      // 2. WEB AUDIO API SYNTHESIZER (Tactile Cyber Click SFX)
+      // ========================================================
+      let audioCtx = null;
+      function playCyberClick(frequency = 900, duration = 0.03) {
+        if (!sfxEnabled) return;
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + duration);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+          // Audio unsupported or blocked, ignore gracefully
+        }
+      }
+
+      // ========================================================
+      // 3. TOAST NOTIFICATION UTILITY
+      // ========================================================
+      let toastTimer = null;
+      function showToast(msg) {
+        const toast = document.getElementById('cyber-toast');
+        const text = document.getElementById('toast-message');
+        if (!toast || !text) return;
+        text.textContent = msg || translations[currentLang].common.copiedToast;
+        toast.classList.remove('opacity-0', 'translate-y-3');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        playCyberClick(1200, 0.05);
+
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-3');
+        }, 2200);
+      }
+
+      // ========================================================
+      // 4. TAB SWITCHER (Vanilla JS)
+      // ========================================================
+      const tabTriggers = document.querySelectorAll('.tab-trigger');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+
+      function switchTab(tabId) {
+        playCyberClick(750, 0.035);
+
+        tabTriggers.forEach((btn) => {
+          const isActive = btn.dataset.tab === tabId;
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          if (isActive) {
+            btn.className = "tab-trigger brutal-btn flex-1 py-1.5 sm:py-2 px-2 text-center text-xs sm:text-sm font-bold border border-white/20 sm:border-blue-600/50 bg-blue-600 text-white shadow-[2px_2px_0px_0px_#ffffff] flex items-center justify-center gap-1.5";
+            btn.querySelectorAll('svg').forEach(icon => {
+              icon.classList.remove('text-blue-500');
+              icon.classList.add('text-white');
+            });
+          } else {
+            btn.className = "tab-trigger brutal-btn flex-1 py-1.5 sm:py-2 px-2 text-center text-xs sm:text-sm font-bold border border-white/10 bg-black text-zinc-400 hover:text-white hover:bg-[#12141a] flex items-center justify-center gap-1.5";
+            btn.querySelectorAll('svg').forEach(icon => {
+              icon.classList.add('text-blue-500');
+              icon.classList.remove('text-white');
+            });
+          }
+        });
+
+        tabPanels.forEach((panel) => {
+          if (panel.id === `tab-${tabId}`) {
+            panel.classList.remove('hidden');
+          } else {
+            panel.classList.add('hidden');
+          }
+        });
+
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', `#${tabId}`);
+        }
+      }
+
+      tabTriggers.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.dataset.tab);
+        });
+      });
+
+      // Handle initial hash routing
+      const initialHash = window.location.hash.replace('#', '');
+      if (['id', 'vault', 'logs'].includes(initialHash)) {
+        switchTab(initialHash);
+      }
+
+      // ========================================================
+      // 5. TERMINAL TYPEWRITER EFFECT
+      // ========================================================
+      const typewriterEl = document.getElementById('typewriter-text');
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let typewriterTimeout = null;
+
+      function typeWriterLoop() {
+        const words = translations[currentLang].cyclingWords;
+        const currentWord = words[wordIndex % words.length];
+
+        if (isDeleting) {
+          charIndex--;
+          typewriterEl.textContent = currentWord.substring(0, charIndex);
+        } else {
+          charIndex++;
+          typewriterEl.textContent = currentWord.substring(0, charIndex);
+        }
+
+        let speed = isDeleting ? 40 : 85;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          speed = 2200; // Pause at end of word
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          speed = 450; // Pause before typing next word
+        }
+
+        typewriterTimeout = setTimeout(typeWriterLoop, speed);
+      }
+
+      function resetTypewriter() {
+        clearTimeout(typewriterTimeout);
+        isDeleting = false;
+        charIndex = 0;
+        typewriterEl.textContent = '';
+        typeWriterLoop();
+      }
+
+      typeWriterLoop();
+
+      // ========================================================
+      // 6. BILINGUAL ENGINE
+      // ========================================================
+      const langToggleBtn = document.getElementById('lang-toggle');
+      const langLabel = document.getElementById('lang-label');
+
+      function getNestedTranslation(obj, path) {
+        return path.split('.').reduce((prev, curr) => (prev ? prev[curr] : null), obj);
+      }
+
+      function applyTranslations(lang) {
+        currentLang = lang;
+        const isAr = lang === 'ar';
+        const dict = translations[lang];
+
+        // Update HTML attributes
+        document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', lang);
+
+        // Update all data-i18n elements
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          const val = getNestedTranslation(dict, key);
+          if (val) {
+            el.textContent = val;
+          }
+        });
+
+        // Update language button text
+        langLabel.textContent = dict.langBtn;
+
+        // Reset typewriter with new language words
+        resetTypewriter();
+
+        // Save preference
+        try {
+          localStorage.setItem('erm_lang', lang);
+        } catch (e) {}
+      }
+
+      langToggleBtn.addEventListener('click', () => {
+        playCyberClick(1100, 0.04);
+        const nextLang = currentLang === 'en' ? 'ar' : 'en';
+        applyTranslations(nextLang);
+      });
+
+      // Restore saved language if any
+      try {
+        const savedLang = localStorage.getItem('erm_lang');
+        if (savedLang && (savedLang === 'en' || savedLang === 'ar')) {
+          if (savedLang !== currentLang) {
+            applyTranslations(savedLang);
+          }
+        }
+      } catch (e) {}
+
+      // ========================================================
+      // 7. COPY BUTTONS HANDLER
+      // ========================================================
+      document.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const textToCopy = btn.getAttribute('data-copy');
+          if (!textToCopy) return;
+
+          try {
+            await navigator.clipboard.writeText(textToCopy);
+            showToast(translations[currentLang].common.copiedToast);
+          } catch (err) {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showToast(translations[currentLang].common.copiedToast);
+          }
+        });
+      });
+
+      // ========================================================
+      // 8. SFX TOGGLE
+      // ========================================================
+      const sfxToggleBtn = document.getElementById('sfx-toggle');
+      const sfxIcon = document.getElementById('sfx-icon');
+      if (sfxToggleBtn) {
+        sfxToggleBtn.addEventListener('click', () => {
+          sfxEnabled = !sfxEnabled;
+          sfxIcon.textContent = sfxEnabled ? '🔊' : '🔇';
+          if (sfxEnabled) {
+            playCyberClick(880, 0.04);
+            showToast("SFX: ENABLED");
+          } else {
+            showToast("SFX: MUTED");
+          }
+        });
+      }
+
+      // ========================================================
+      // 9. LIVE REAL-TIME CLOCK (UTC)
+      // ========================================================
+      const liveClockEl = document.getElementById('live-clock');
+      function updateClock() {
+        if (!liveClockEl) return;
+        const now = new Date();
+        const hrs = String(now.getUTCHours()).padStart(2, '0');
+        const mins = String(now.getUTCMinutes()).padStart(2, '0');
+        const secs = String(now.getUTCSeconds()).padStart(2, '0');
+        liveClockEl.textContent = `${hrs}:${mins}:${secs} UTC`;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+    </script>
+  </body>
+</html>
