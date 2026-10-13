@@ -1,0 +1,65 @@
+---
+/**
+ * CyberDemo.astro
+ * Blueprint demo component showcasing:
+ * 1. Pure-CSS Typewriter Terminal (Zero JS)
+ * 2. Pure-CSS Tab Manager using radio inputs & group-has (Zero JS)
+ */
+---
+
+<div class="border-2 border-azure bg-obsidian p-5 shadow-brutal space-y-6">
+  <!-- Demo Header -->
+  <div class="border-b border-zinc-800 pb-3 flex items-center justify-between font-mono text-xs text-zinc-400">
+    <span class="text-azure font-bold">// PURE CSS ARCHITECTURAL DEMO</span>
+    <span class="bg-azure/20 text-azure border border-azure/40 px-1.5 py-0.5">0 kB JS</span>
+  </div>
+
+  <!-- 1. Pure CSS Typewriter -->
+  <div class="space-y-2">
+    <div class="text-[11px] font-mono text-zinc-400 font-bold uppercase tracking-wider">
+      1. Pure CSS Typewriter Terminal:
+    </div>
+    <div class="inline-flex font-mono text-xs sm:text-sm text-azure border border-azure/30 bg-obsidian-surface px-3 py-1.5 shadow-brutal max-w-full overflow-hidden">
+      <span class="text-zinc-500 mr-2 shrink-0">root@box:~#</span>
+      <span class="overflow-hidden whitespace-nowrap animate-typing border-r-2 border-azure inline-block text-zinc-200">
+        initializing_system_core
+      </span>
+    </div>
+  </div>
+
+  <!-- 2. Pure CSS Tab Switcher -->
+  <div class="space-y-2">
+    <div class="text-[11px] font-mono text-zinc-400 font-bold uppercase tracking-wider">
+      2. Pure CSS Tab Switcher:
+    </div>
+    <div class="group border border-zinc-800 bg-pitch p-4">
+      <!-- Hidden Radio Controllers -->
+      <input type="radio" id="demo-tab-1" name="demo-radio-group" class="hidden" checked />
+      <input type="radio" id="demo-tab-2" name="demo-radio-group" class="hidden" />
+
+      <!-- Dock / Tab Triggers -->
+      <div class="flex gap-2 mb-3 select-none">
+        <label
+          for="demo-tab-1"
+          class="cursor-pointer border border-white/20 px-3 py-1.5 text-xs font-mono font-bold bg-obsidian text-zinc-400 group-has-[#demo-tab-1:checked]:bg-azure group-has-[#demo-tab-1:checked]:text-white group-has-[#demo-tab-1:checked]:shadow-brutal-sm transition-all active:translate-x-[2px] active:translate-y-[2px]"
+        >
+          // ALPHA.ID
+        </label>
+        <label
+          for="demo-tab-2"
+          class="cursor-pointer border border-white/20 px-3 py-1.5 text-xs font-mono font-bold bg-obsidian text-zinc-400 group-has-[#demo-tab-2:checked]:bg-azure group-has-[#demo-tab-2:checked]:text-white group-has-[#demo-tab-2:checked]:shadow-brutal-sm transition-all active:translate-x-[2px] active:translate-y-[2px]"
+        >
+          // BETA.VAULT
+        </label>
+      </div>
+
+      <!-- Tab Content Panels -->
+      <div class="hidden group-has-[#demo-tab-1:checked]:block p-3 border border-zinc-800 bg-obsidian-surface text-xs font-mono text-zinc-300">
+        &gt; Buffer Alpha active: Zero client-side JavaScript execution.
+      </div>
+      <div class="hidden group-has-[#demo-tab-2:checked]:block p-3 border border-zinc-800 bg-obsidian-surface text-xs font-mono text-zinc-300">
+        &gt; Buffer Beta active: Pure CSS :checked state evaluation.
+      </div>
+    </div>
+  </div>
+</div>

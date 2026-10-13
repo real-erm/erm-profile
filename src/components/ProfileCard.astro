@@ -1,0 +1,338 @@
+---
+import { Icon } from 'astro-icon/components';
+import { siteContent, type SiteContent } from '../data/content';
+
+interface Props {
+  locale: 'en' | 'ar';
+}
+
+const { locale } = Astro.props;
+const t: SiteContent = siteContent[locale];
+---
+
+<!-- ROOT COMPONENT WRAPPER (Tailwind .group for pure-CSS :has state evaluations) -->
+<div class="group relative">
+  <!-- HIDDEN RADIO INPUTS (State controllers for zero-JS CSS tabs) -->
+  <input type="radio" name="portfolio-tab" id="tab-id" class="hidden" checked />
+  <input type="radio" name="portfolio-tab" id="tab-vault" class="hidden" />
+  <input type="radio" name="portfolio-tab" id="tab-logs" class="hidden" />
+
+  <!-- ======================================================== -->
+  <!-- SHARP FLOATING TOP DOCK (Zero JS, 100% Tailwind CSS)     -->
+  <!-- ======================================================== -->
+  <header class="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-3xl">
+    <nav
+      class="bg-obsidian/95 backdrop-blur-md border-2 border-white sm:border-azure shadow-brutal flex items-stretch justify-between p-1.5 select-none"
+      aria-label="Main Navigation Dock"
+    >
+      <!-- 3 Pure-CSS Tab Labels (Bound to radio inputs above) -->
+      <div class="flex items-stretch gap-1.5 sm:gap-2 flex-1">
+        <label
+          for="tab-id"
+          class="cursor-pointer flex-1 py-2 sm:py-2.5 px-3 text-center text-xs sm:text-sm font-bold border border-white/10 bg-pitch text-zinc-400 hover:text-white hover:bg-obsidian-surface flex items-center justify-center gap-2 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none group-has-[#tab-id:checked]:bg-azure group-has-[#tab-id:checked]:text-white group-has-[#tab-id:checked]:border-white/20 group-has-[#tab-id:checked]:shadow-[2px_2px_0px_0px_#ffffff]"
+        >
+          <Icon name="lucide:terminal" class="w-4 h-4 shrink-0 hidden sm:inline-block" />
+          <span>{t.dock.id}</span>
+        </label>
+
+        <label
+          for="tab-vault"
+          class="cursor-pointer flex-1 py-2 sm:py-2.5 px-3 text-center text-xs sm:text-sm font-bold border border-white/10 bg-pitch text-zinc-400 hover:text-white hover:bg-obsidian-surface flex items-center justify-center gap-2 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none group-has-[#tab-vault:checked]:bg-azure group-has-[#tab-vault:checked]:text-white group-has-[#tab-vault:checked]:border-white/20 group-has-[#tab-vault:checked]:shadow-[2px_2px_0px_0px_#ffffff]"
+        >
+          <Icon name="lucide:shield" class="w-4 h-4 shrink-0 hidden sm:inline-block" />
+          <span>{t.dock.vault}</span>
+        </label>
+
+        <label
+          for="tab-logs"
+          class="cursor-pointer flex-1 py-2 sm:py-2.5 px-3 text-center text-xs sm:text-sm font-bold border border-white/10 bg-pitch text-zinc-400 hover:text-white hover:bg-obsidian-surface flex items-center justify-center gap-2 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none group-has-[#tab-logs:checked]:bg-azure group-has-[#tab-logs:checked]:text-white group-has-[#tab-logs:checked]:border-white/20 group-has-[#tab-logs:checked]:shadow-[2px_2px_0px_0px_#ffffff]"
+        >
+          <Icon name="lucide:file-text" class="w-4 h-4 shrink-0 hidden sm:inline-block" />
+          <span>{t.dock.logs}</span>
+        </label>
+      </div>
+
+      <!-- Native Astro SSG Static Language Link (Zero JS, direct hyperlink) -->
+      <div class="flex items-stretch pl-1.5 rtl:pr-1.5 rtl:pl-0 border-l rtl:border-r rtl:border-l-0 border-zinc-800 ml-1.5 rtl:mr-1.5 rtl:ml-0">
+        <a
+          href={t.otherLangUrl}
+          title={t.otherLangTitle}
+          class="px-3 sm:px-4 py-2 sm:py-2.5 border border-white/30 bg-pitch text-white hover:bg-azure hover:border-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-brutal-sm transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+        >
+          <Icon name="lucide:globe" class="w-4 h-4 text-blue-400 shrink-0" />
+          <span class="tracking-wider">{t.otherLangLabel}</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- MAIN SILHOUETTE CARD (Max-w-3xl, centered brutalist)     -->
+  <!-- ======================================================== -->
+  <main class="relative z-20 max-w-3xl mx-auto pt-24 sm:pt-28 pb-16 px-4 sm:px-6">
+    <section class="bg-obsidian border-2 border-white sm:border-azure shadow-brutal overflow-hidden">
+      <!-- TOP STATUS BAR (TTY / Status) -->
+      <div class="bg-pitch border-b-2 border-zinc-800 px-4 sm:px-6 py-2.5 flex items-center justify-between text-xs font-mono text-zinc-400 select-none">
+        <div class="flex items-center gap-2.5">
+          <span class="inline-block w-2.5 h-2.5 bg-azure border border-white/40"></span>
+          <span class="text-white font-bold tracking-wider">{t.system.status}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="text-zinc-300 font-bold">{t.system.online}</span>
+        </div>
+      </div>
+
+      <!-- PROFILE HERO HEADER -->
+      <div class="p-6 sm:p-8 border-b-2 border-zinc-800 bg-obsidian-surface">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8 text-center sm:text-left rtl:sm:text-right">
+          <!-- AVATAR BOX -->
+          <div class="relative shrink-0">
+            <div class="w-28 h-28 sm:w-32 sm:h-32 border-2 border-azure bg-pitch shadow-[4px_4px_0px_0px_#ffffff] relative overflow-hidden group">
+              <img
+                src="/avatar.png"
+                alt="ERM Avatar"
+                width="128"
+                height="128"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="eager"
+              />
+              <div class="absolute inset-0 bg-scanlines pointer-events-none opacity-40"></div>
+            </div>
+            <span class="absolute -bottom-1.5 -right-1.5 rtl:-right-auto rtl:-left-1.5 bg-emerald-500 text-black text-[9px] font-bold px-1.5 py-0.5 border border-black shadow-[2px_2px_0px_0px_#000000]">
+              {t.profile.badge}
+            </span>
+          </div>
+
+          <!-- IDENTITY INFO -->
+          <div class="flex-1 min-w-0">
+            <!-- Name & Title -->
+            <div class="flex flex-wrap items-center justify-center sm:justify-start rtl:sm:justify-start gap-2.5 mb-2">
+              <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white font-mono uppercase">
+                <span>{t.profile.name}</span>
+                <span class="text-azure ml-1.5 rtl:mr-1.5 text-xl sm:text-2xl font-normal">{t.profile.arabicName}</span>
+              </h1>
+              <span class="bg-azure text-white text-[11px] font-bold px-2 py-0.5 border border-white tracking-widest uppercase">
+                {t.profile.badge}
+              </span>
+            </div>
+
+            <!-- PURE CSS TYPEWRITER SUBTITLE (Zero JavaScript) -->
+            <div class="inline-flex items-center font-mono text-xs sm:text-sm border border-azure/30 bg-pitch px-3.5 py-2 shadow-brutal max-w-full overflow-hidden my-2.5">
+              <span class="text-azure font-bold mr-2 rtl:ml-2 rtl:mr-0 shrink-0">{t.profile.typewriterPrefix}</span>
+              <span class="overflow-hidden whitespace-nowrap animate-typing border-r-2 border-azure inline-block text-zinc-200 font-semibold tracking-wide">
+                {t.profile.typewriterText}
+              </span>
+            </div>
+
+            <!-- Short Bio -->
+            <p class="text-sm sm:text-base text-zinc-300 leading-relaxed mt-2.5 font-normal">
+              {t.profile.bio}
+            </p>
+
+            <!-- Attributes Badges -->
+            <div class="flex flex-wrap gap-2 mt-4 justify-center sm:justify-start rtl:sm:justify-start">
+              {t.profile.pills.map((pill) => (
+                <span class="bg-[#12141a] text-zinc-300 border border-zinc-700 text-xs font-bold px-2.5 py-1 font-mono">
+                  [ {pill} ]
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB PANELS (Evaluated via pure CSS group-has selectors)  -->
+      <!-- ======================================================== -->
+      <div class="p-6 sm:p-8 bg-obsidian">
+
+        <!-- ====================================================== -->
+        <!-- TAB 01: // 01.ID (Links & Identity)                    -->
+        <!-- ====================================================== -->
+        <div class="hidden group-has-[#tab-id:checked]:block space-y-4">
+          <!-- Header Banner -->
+          <div class="border border-zinc-800 bg-pitch/60 p-3 flex items-center justify-between text-xs sm:text-sm text-zinc-400 font-mono">
+            <span class="text-azure font-bold">{t.links.header}</span>
+            <span class="text-xs border border-zinc-700 px-1.5 py-0.5">{t.links.auth}</span>
+          </div>
+
+          <!-- LINK 1: GITHUB -->
+          <a
+            href={t.links.github.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block group/link border-2 border-white/80 hover:border-azure bg-obsidian-surface hover:bg-[#12141a] p-4 sm:p-5 shadow-brutal text-white transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+          >
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-11 h-11 border border-white/20 bg-pitch flex items-center justify-center shrink-0 group-hover/link:border-azure">
+                  <Icon name="simple-icons:github" class="w-6 h-6 text-white group-hover/link:text-azure transition-colors" />
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-base sm:text-lg tracking-wide">{t.links.github.title}</span>
+                    <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 border border-zinc-600 font-mono">{t.links.github.tag}</span>
+                  </div>
+                  <p class="text-xs sm:text-sm text-zinc-400 font-mono mt-1">{t.links.github.subtitle}</p>
+                </div>
+              </div>
+              <div class="text-zinc-500 group-hover/link:text-azure transition-colors pl-2 rtl:pr-2 rtl:pl-0">
+                <Icon name="lucide:external-link" class="w-5 h-5" />
+              </div>
+            </div>
+          </a>
+
+          <!-- LINK 2: DISCORD (With Native Select-All Code Block, Zero JS) -->
+          <div class="border-2 border-white/80 hover:border-azure bg-obsidian-surface p-4 sm:p-5 shadow-brutal text-white">
+            <div class="flex items-center justify-between flex-wrap gap-3">
+              <a
+                href={t.links.discord.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-4 group/disc flex-1 min-w-[220px]"
+              >
+                <div class="w-11 h-11 border border-white/20 bg-[#5865F2]/20 flex items-center justify-center shrink-0 group-hover/disc:border-azure">
+                  <Icon name="simple-icons:discord" class="w-6 h-6 text-[#5865F2]" />
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-base sm:text-lg tracking-wide">{t.links.discord.title}</span>
+                    <span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 border border-emerald-800 font-mono">{t.links.discord.status}</span>
+                  </div>
+                  <p class="text-xs sm:text-sm text-zinc-400 font-mono mt-1">{t.links.discord.handle}</p>
+                </div>
+              </a>
+
+              <!-- Native Selectable Monospace ID (0 kB JS runtime, select-all) -->
+              <div class="flex items-center gap-2">
+                <div
+                  class="border border-white/30 bg-pitch px-3 py-1.5 font-mono text-xs text-azure flex items-center gap-2 cursor-pointer select-all shadow-brutal-sm hover:border-azure transition-colors"
+                  title="Click to select Discord ID"
+                >
+                  <span class="text-zinc-500 font-bold">$</span>
+                  <code class="font-bold select-all tracking-wider text-white">{t.links.discord.id}</code>
+                  <Icon name="lucide:copy" class="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                </div>
+                <a
+                  href={t.links.discord.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="border border-azure bg-azure hover:bg-azure-cobalt px-3 py-1.5 text-xs font-mono font-bold text-white flex items-center gap-1.5 active:translate-x-[2px] active:translate-y-[2px]"
+                >
+                  <span>{t.links.discord.open}</span>
+                  <Icon name="lucide:external-link" class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- LINK 3: CTFTIME PROFILE -->
+          <a
+            href={t.links.ctf.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block group/ctf border-2 border-white/80 hover:border-azure bg-obsidian-surface hover:bg-[#12141a] p-4 sm:p-5 shadow-brutal-white text-white transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+          >
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-11 h-11 border border-white/20 bg-pitch flex items-center justify-center shrink-0 group-hover/ctf:border-azure">
+                  <Icon name="lucide:flag" class="w-6 h-6 text-amber-400" />
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-base sm:text-lg tracking-wide">{t.links.ctf.title}</span>
+                    <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 border border-amber-800 font-mono">{t.links.ctf.tag}</span>
+                  </div>
+                  <p class="text-xs sm:text-sm text-zinc-400 font-mono mt-1">{t.links.ctf.subtitle}</p>
+                </div>
+              </div>
+              <div class="text-zinc-500 group-hover/ctf:text-azure transition-colors pl-2 rtl:pr-2 rtl:pl-0">
+                <Icon name="lucide:external-link" class="w-5 h-5" />
+              </div>
+            </div>
+          </a>
+
+          <!-- SYSTEM WORKSTATION SPECS -->
+          <div class="mt-5 border border-zinc-800 bg-pitch p-4 sm:p-5 font-mono text-xs sm:text-sm text-zinc-400">
+            <div class="text-white font-bold mb-3 flex items-center gap-2">
+              <Icon name="lucide:terminal" class="w-4 h-4 text-azure" />
+              <span>{t.specs.title}</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              {t.specs.items.map((item) => (
+                <div>
+                  <span class="text-azure font-bold">&gt; {item.label}:</span> {item.value}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- TAB 02: // 02.VAULT (Projects & Repositories)          -->
+        <!-- ====================================================== -->
+        <div class="hidden group-has-[#tab-vault:checked]:block space-y-4">
+          <div class="border border-zinc-800 bg-pitch/60 p-3 flex items-center justify-between text-xs sm:text-sm text-zinc-400 font-mono">
+            <span class="text-azure font-bold">{t.vault.header}</span>
+            <span class="text-xs bg-azure/20 text-azure border border-azure/40 px-2 py-0.5">{t.vault.status}</span>
+          </div>
+
+          <div class="border-2 border-white/80 bg-obsidian-surface p-8 sm:p-14 shadow-brutal text-center">
+            <div class="inline-flex items-center justify-center w-14 h-14 border-2 border-azure bg-pitch mb-4 shadow-[3px_3px_0px_0px_#ffffff]">
+              <Icon name="lucide:shield" class="w-7 h-7 text-azure" />
+            </div>
+            <div>
+              <span class="font-mono text-xs bg-amber-500 text-black border border-amber-300 px-3 py-1 font-extrabold tracking-widest inline-block animate-pulse">
+                [ {t.vault.comingSoon} ]
+              </span>
+            </div>
+            <h2 class="text-lg sm:text-2xl font-bold text-white font-mono uppercase tracking-tight mt-4">
+              {t.vault.title}
+            </h2>
+            <p class="text-xs sm:text-sm text-zinc-400 font-mono max-w-md mx-auto mt-2 leading-relaxed">
+              {t.vault.desc}
+            </p>
+            <div class="mt-6 inline-block font-mono text-xs text-zinc-500 bg-pitch border border-zinc-800 px-4 py-2">
+              {t.vault.cmd}
+            </div>
+          </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- TAB 03: // 03.LOGS (Writeups & Security Notes)         -->
+        <!-- ====================================================== -->
+        <div class="hidden group-has-[#tab-logs:checked]:block space-y-4">
+          <div class="border border-zinc-800 bg-pitch/60 p-3 flex items-center justify-between text-xs sm:text-sm text-zinc-400 font-mono">
+            <span class="text-azure font-bold">{t.logs.header}</span>
+            <span class="text-xs border border-zinc-700 px-2 py-0.5">{t.logs.status}</span>
+          </div>
+
+          <div class="border-2 border-white/80 bg-obsidian-surface p-8 sm:p-14 shadow-brutal text-center">
+            <div class="inline-flex items-center justify-center w-14 h-14 border-2 border-azure bg-pitch mb-4 shadow-[3px_3px_0px_0px_#2563eb]">
+              <Icon name="lucide:file-text" class="w-7 h-7 text-azure" />
+            </div>
+            <div>
+              <span class="font-mono text-xs bg-amber-500 text-black border border-amber-300 px-3 py-1 font-extrabold tracking-widest inline-block animate-pulse">
+                [ {t.logs.comingSoon} ]
+              </span>
+            </div>
+            <h2 class="text-lg sm:text-2xl font-bold text-white font-mono uppercase tracking-tight mt-4">
+              {t.logs.title}
+            </h2>
+            <p class="text-xs sm:text-sm text-zinc-400 font-mono max-w-md mx-auto mt-2 leading-relaxed">
+              {t.logs.desc}
+            </p>
+            <div class="mt-6 inline-block font-mono text-xs text-zinc-500 bg-pitch border border-zinc-800 px-4 py-2">
+              {t.logs.cmd}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,41 @@
+---
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '@fontsource/ibm-plex-sans-arabic/400.css';
+import '@fontsource/ibm-plex-sans-arabic/700.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: 'en' | 'ar';
+  dir?: 'ltr' | 'rtl';
+}
+
+const {
+  title = 'ERM / Metwally // Cyber-Neobrutalism Portfolio',
+  description = 'Personal cyber-neobrutalist portfolio & vault for ERM / Metwally - Digital forensics, FOSS enthusiast, CTF player.',
+  lang = 'en',
+  dir = 'ltr',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} dir={dir} class={`dark scroll-smooth bg-pitch text-white ${dir === 'rtl' ? 'font-arabic' : 'font-mono'}`}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/png" href="/avatar.png" />
+    <link rel="preload" href="/avatar.png" as="image" />
+  </head>
+  <body class="bg-pitch text-white min-h-screen selection:bg-azure selection:text-white relative overflow-x-hidden">
+    <!-- Cyber Matrix dot grid & scanline background layers (Tailwind utilities only) -->
+    <div class="fixed inset-0 bg-cyber-grid pointer-events-none z-0"></div>
+    <div class="fixed inset-0 bg-scanlines pointer-events-none z-10 opacity-60"></div>
+
+    <!-- Main Content Slot -->
+    <slot />
+  </body>
+</html>
